@@ -14,7 +14,7 @@ class Course {
   toJSON () {
       return {
         title: this.title,
-        rice: this.price,
+        price: this.price,
         img:this.img,
         id: this.id
       }
@@ -47,8 +47,30 @@ class Course {
             }
           );
     })
-   
   }
+  static async getById (id) {
+     const courses = await Course.getAll()
+
+     return courses.find(item => item.id === id)
+  }
+
+  static async update (course) {
+    const courses = await Course.getAll()
+
+    const courseIndex = courses.findIndex( item => item.id === course.id)
+    courses[courseIndex] = course
+
+    return new Promise((resolve, reject) => {
+      fs.writeFile(path.join(__dirname, "..", "data", "courses.json"), JSON.stringify(courses), (err)=> {
+          if(err) {
+              reject( err)
+          } else {
+              resolve ()
+          }
+      })
+  })
+  }
+
 }
 
 module.exports = Course
