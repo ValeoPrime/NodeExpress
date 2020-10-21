@@ -4,6 +4,7 @@ const expressHandlebars = require('express-handlebars')
 const homeRoutes = require('./routes/home')
 const addRoutes = require('./routes/add')
 const coursesRoutes = require('./routes/courses')
+const cardRoutes = require('./routes/card')
 
 
 const handlebars = expressHandlebars.create({ //Создание и настрйока хандлбарса
@@ -18,8 +19,9 @@ app.set('views', 'views') //второй параметр место хране�
 app.use(express.static('public')) // регистрация папки в качетстве статичной (иначе не видит сиэсэс и пр)
 app.use(express.urlencoded({extended: true})) // для расшифровки данных приходящих в тел запроса
 app.use('/',homeRoutes)//Приложение получает доступ к корневому роуту
-app.use('/add',addRoutes)//Приложение получает доступ к корневому роуту
-app.use('/courses',coursesRoutes)//Приложение получает доступ к корневому роуту
+app.use('/add',addRoutes)
+app.use('/courses',coursesRoutes)
+app.use('/card',cardRoutes)
 
 
 const PORT = process.env.PORT || 3000
